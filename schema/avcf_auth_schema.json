@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AVCF Authentication Block",
+  "description": "Schema for the AVCF authentication metadata block embedded in video containers",
+  "type": "object",
+  "required": ["metadata", "signature"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["video_hash", "author_name", "pubkey_fingerprint", "timestamp", "tool_name", "tool_version"],
+      "properties": {
+        "video_hash": {
+          "type": "string",
+          "description": "SHA-256 hash of the video + audio stream",
+          "pattern": "^[a-fA-F0-9]{64}$"
+        },
+        "author_name": {
+          "type": "string",
+          "description": "Name of the author or organization"
+        },
+        "author_email": {
+          "type": "string",
+          "description": "Email of the author",
+          "format": "email"
+        },
+        "author_organization": {
+          "type": "string",
+          "description": "Organization of the author"
+        },
+        "pubkey_fingerprint": {
+          "type": "string",
+          "description": "Fingerprint of the author's public key",
+          "pattern": "^[A-F0-9 ]{40,50}$"
+        },
+        "pubkey_url": {
+          "type": "string",
+          "description": "URL to retrieve the author's public key",
+          "format": "uri"
+        },
+        "embedded_pubkey": {
+          "type": "string",
+          "description": "Author's public key embedded directly"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Timestamp of signature creation",
+          "format": "date-time"
+        },
+        "tool_name": {
+          "type": "string",
+          "description": "Tool used to create the signature"
+        },
+        "tool_version": {
+          "type": "string",
+          "description": "Version of the tool used"
+        },
+        "tags": {
+          "type": "array",
+          "description": "Optional tags for categorization",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional notes about the content"
+        }
+      }
+    },
+    "signature": {
+      "type": "string",
+      "description": "PGP signature of the serialized metadata"
+    }
+  },
+  "examples": [
+    {
+      "metadata": {
+        "video_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "author_name": "Jane Doe",
+        "author_email": "jane@example.com",
+        "pubkey_fingerprint": "D4C9 D8F2 E1A1 D8BB 2F09 768A 5FBE 8F7B 07B4 328D",
+        "pubkey_url": "https://example.com/keys/jane.asc",
+        "timestamp": "2025-06-16T03:12:59Z",
+        "tool_name": "avcf-sign",
+        "tool_version": "0.1.0"
+      },
+      "signature": "-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG v2\n\niQEzBAABCAAdFiEE1MnY8uGh2LsvCXaKX76PewdLQy0FAmSXYVEACgkQX76PewdL\nQy2vCQgAkm2xMC2/5QY7qyb8Mq5Qz/LeDRVrTBJ6ac7g4MvL+6i0W9Q9AJgZZV9Y\n1uYCzX2m+iu0Bz7LzlLdkgCl7WvVBIjyeL5yUPM1qLxKPTALOBNpKSHRRRvVKJIu\nYbdx3JrM9wftPQbJZZwxXNqVw1MVQGfhUEouVTz9jtZpJXFYUvKs6TY8nI6In1Oe\nzGgn/BxgpG2jOSs3JLIwjS+YwZ+9LQlqKfYyEOFw4UMBl0oVVxMsK3/NQ8LOYXJ2\nEYH/nK5iBMqO4JwUyCWepkrYB9HRbGPzDYy/1Jq0OGRJHLlP3FK9N4QXHMeEaut5\nj5wJzLVPCZK8M9AvLJ/eGXABZQ==\n=jdQW\n-----END PGP SIGNATURE-----"
+    }
+  ]
+}

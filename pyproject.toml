@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "avcf"
+version = "0.1.0"
+description = "Authenticated Video Container Format - cryptographic verification for video files"
+readme = "README.md"
+authors = [
+    {name = "AVCF Team"}
+]
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "python-gnupg>=0.5.0",
+    "click>=8.0.0",
+    "pydantic>=2.0.0",
+    "pymediainfo>=5.1.0",
+    "ffmpeg-python>=0.2.0",
+    "cryptography>=37.0.0",
+    "requests>=2.28.0",
+]
+
+[project.scripts]
+avcf-sign = "avcf.cli.sign:main"
+avcf-verify = "avcf.cli.verify:main"
+avcf-ffmpeg = "avcf.cli.ffmpeg:main"
+
+[project.urls]
+"Homepage" = "https://github.com/peterkelly70/justice_protocol"
+"Bug Tracker" = "https://github.com/peterkelly70/justice_protocol/issues"
